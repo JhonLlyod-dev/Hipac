@@ -1,0 +1,352 @@
+import {
+  ArrowRight,
+  CalendarDays,
+  ExternalLink,
+  MapPin,
+  UserRound,
+} from "lucide-react";
+
+// ============================================================
+// PAGE CONTENT
+// Replace these with Sanity data later.
+// ============================================================
+
+const heroContent = {
+  eyebrow: "Stay Informed",
+  title: "Election Information",
+  description:
+    "Stay informed, prepared, and engaged in the electoral process.",
+  backgroundImage:
+    "https://hindusofgeorgia.com/wp-content/uploads/2024/09/Blue-and-White-Modern-Civil-Right-Day-A4-Flyer.png",
+};
+
+const introduction = {
+  title: "Your Voice Matters",
+  paragraphs: [
+    "Elections are the cornerstone of democracy, giving citizens the opportunity to shape their government and ensure that their voices are heard. As a member of the Hindu community in Georgia, it is vital to stay informed and engaged in the electoral process to advocate for the issues that matter most to you.",
+    "In this section, you will find everything you need to make sure you’re ready for the next election. We’ve compiled important dates, such as registration deadlines and election days, so you won’t miss your chance to vote. Additionally, there are links to help you check your voter registration status, find your polling location, and confirm your district to ensure you’re voting in the correct races.",
+    "Whether you’re voting for local leaders or in national elections, being informed and prepared is the best way to make a difference in your community.",
+  ],
+};
+
+// ============================================================
+// ELECTION DATES
+// ============================================================
+
+const election = {
+  name: "General Election",
+  date: "November 5, 2024",
+};
+
+const electionDates = [
+  {
+    label: "Election Day & Name",
+    date: "11/05/2024",
+    description: "November 5, 2024 – General Election",
+    featured: true,
+  },
+  {
+    label: "Earliest Day for a Registrar to Mail an Absentee Ballot",
+    date: "09/21/2024",
+  },
+  {
+    label: "Last Day to Submit Absentee Ballot Application",
+    date: "10/25/2024",
+  },
+  {
+    label: "Registration Deadline",
+    date: "10/07/2024",
+  },
+  {
+    label: "Early-in-Person Voting Begins",
+    date: "10/15/2024",
+  },
+  {
+    label: "Earliest Day for a Voter to Request a Mail Absentee Ballot",
+    date: "08/19/2024",
+  },
+];
+
+// ============================================================
+// VOTER RESOURCES
+// ============================================================
+
+const voterResources = [
+  {
+    title: "My Voter Page",
+    description:
+      "Check your registration status, request an absentee ballot, see a sample ballot, and check key election dates.",
+    buttonLabel: "Go to My Voter Page",
+    href: "https://mvp.sos.ga.gov/s/",
+    icon: CalendarDays,
+    external: true,
+  },
+  {
+    title: "Find Your Representative",
+    description:
+      "Don’t know who represents you? Use this resource to find your state and local legislators.",
+    buttonLabel: "Find Your Representative",
+    href: "https://pluralpolicy.com/find-your-legislator/",
+    icon: MapPin,
+    external: true,
+  },
+  {
+    title: "Hindu PAC Endorsed Candidates",
+    description:
+      "See the list of elected officials and candidates endorsed by Hindu PAC.",
+    buttonLabel: "See Endorsed Candidates",
+    href: "/candidates",
+    icon: UserRound,
+    external: false,
+  },
+];
+
+export default function ElectionsInfo() {
+  return (
+    <main>
+      {/* ======================================================
+          HERO
+      ====================================================== */}
+
+      <section className="relative overflow-hidden bg-hipac-brown">
+        <div className="absolute inset-0">
+          <img
+            src={heroContent.backgroundImage}
+            alt=""
+            className="h-full w-full object-cover opacity-30"
+          />
+
+          <div className="absolute inset-0 bg-hipac-brown/80" />
+        </div>
+
+        <div className="relative mx-auto max-w-7xl px-5 py-24 lg:px-8 lg:py-32">
+          <div className="max-w-3xl">
+            <p className="font-heading text-sm font-bold uppercase tracking-[0.25em] text-hipac-orange">
+              {heroContent.eyebrow}
+            </p>
+
+            <h1 className="mt-4 font-heading text-5xl font-extrabold tracking-tight text-white sm:text-6xl lg:text-7xl">
+              {heroContent.title}
+            </h1>
+
+            <p className="mt-6 max-w-2xl font-body text-lg leading-8 text-white/75">
+              {heroContent.description}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ======================================================
+          INTRODUCTION
+      ====================================================== */}
+
+      <section className="bg-hipac-warm-white px-5 py-20 lg:px-8 lg:py-28">
+        <div className="mx-auto max-w-4xl">
+          <div className="mb-10">
+            <p className="font-heading text-sm font-bold uppercase tracking-[0.2em] text-hipac-orange">
+              Election Information
+            </p>
+
+            <h2 className="mt-3 font-heading text-3xl font-extrabold tracking-tight text-hipac-brown sm:text-4xl">
+              {introduction.title}
+            </h2>
+          </div>
+
+          <div className="space-y-5">
+            {introduction.paragraphs.map((paragraph) => (
+              <p
+                key={paragraph}
+                className="font-body text-base leading-8 text-hipac-muted"
+              >
+                {paragraph}
+              </p>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ======================================================
+          IMPORTANT DATES
+      ====================================================== */}
+
+      <section className="bg-white px-5 py-20 lg:px-8 lg:py-28">
+        <div className="mx-auto max-w-7xl">
+          <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+            <div className="max-w-2xl">
+              <p className="font-heading text-sm font-bold uppercase tracking-[0.2em] text-hipac-orange">
+                Mark Your Calendar
+              </p>
+
+              <h2 className="mt-3 font-heading text-4xl font-extrabold tracking-tight text-hipac-brown sm:text-5xl">
+                Important Election Dates
+              </h2>
+
+              <p className="mt-5 font-body leading-7 text-hipac-muted">
+                Keep track of the important dates so you can be prepared to
+                participate in the election.
+              </p>
+            </div>
+
+            {/* Election Badge */}
+            <div className="flex items-center gap-3 rounded-2xl bg-hipac-brown px-5 py-4 text-white">
+              <CalendarDays
+                size={22}
+                className="text-hipac-orange"
+              />
+
+              <div>
+                <p className="font-heading text-xs font-bold uppercase tracking-wide text-white/50">
+                  Election
+                </p>
+
+                <p className="font-heading text-sm font-bold">
+                  {election.name}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Dates */}
+          <div className="mt-12 overflow-hidden rounded-2xl border border-hipac-border bg-white shadow-card">
+            {electionDates.map((item, index) => (
+              <div
+                key={item.label}
+                className={`grid gap-4 px-6 py-6 sm:grid-cols-[180px_1fr] sm:items-center lg:grid-cols-[220px_1fr] ${
+                  index !== electionDates.length - 1
+                    ? "border-b border-hipac-border"
+                    : ""
+                } ${
+                  item.featured
+                    ? "bg-hipac-orange/5"
+                    : ""
+                }`}
+              >
+                {/* Date */}
+                <div>
+                  <span
+                    className={`font-heading text-2xl font-extrabold ${
+                      item.featured
+                        ? "text-hipac-orange"
+                        : "text-hipac-brown"
+                    }`}
+                  >
+                    {item.date}
+                  </span>
+                </div>
+
+                {/* Information */}
+                <div>
+                  <h3 className="font-heading text-base font-bold text-hipac-brown">
+                    {item.label}
+                  </h3>
+
+                  {item.description && (
+                    <p className="mt-1 font-body text-sm text-hipac-muted">
+                      {item.description}
+                    </p>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ======================================================
+          VOTER RESOURCES
+      ====================================================== */}
+
+      <section className="bg-hipac-brown px-5 py-20 text-white lg:px-8 lg:py-28">
+        <div className="mx-auto max-w-7xl">
+          <div className="max-w-2xl">
+            <p className="font-heading text-sm font-bold uppercase tracking-[0.2em] text-hipac-orange">
+              Voter Resources
+            </p>
+
+            <h2 className="mt-3 font-heading text-4xl font-extrabold tracking-tight sm:text-5xl">
+              Be ready to make your voice heard.
+            </h2>
+
+            <p className="mt-5 font-body leading-7 text-white/70">
+              Use these resources to check your voter information, learn who
+              represents you, and see the candidates supported by Hindu PAC.
+            </p>
+          </div>
+
+          <div className="mt-12 grid gap-5 md:grid-cols-3">
+            {voterResources.map((resource) => {
+              const Icon = resource.icon;
+
+              return (
+                <article
+                  key={resource.title}
+                  className="group flex flex-col rounded-2xl border border-white/10 bg-white/5 p-7 transition-all duration-300 hover:-translate-y-1 hover:bg-white/10"
+                >
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-hipac-orange text-white">
+                    <Icon size={22} />
+                  </div>
+
+                  <h3 className="mt-6 font-heading text-xl font-bold">
+                    {resource.title}
+                  </h3>
+
+                  <p className="mt-3 flex-1 font-body text-sm leading-6 text-white/65">
+                    {resource.description}
+                  </p>
+
+                  <a
+                    href={resource.href}
+                    {...(resource.external
+                      ? {
+                          target: "_blank",
+                          rel: "noopener noreferrer",
+                        }
+                      : {})}
+                    className="mt-7 inline-flex items-center gap-2 font-heading text-sm font-bold text-hipac-orange transition-colors hover:text-white"
+                  >
+                    {resource.buttonLabel}
+
+                    {resource.external ? (
+                      <ExternalLink size={16} />
+                    ) : (
+                      <ArrowRight size={16} />
+                    )}
+                  </a>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ======================================================
+          CTA
+      ====================================================== */}
+
+      <section className="bg-hipac-orange px-5 py-16 lg:px-8 lg:py-20">
+        <div className="mx-auto max-w-7xl text-center">
+          <p className="font-heading text-sm font-bold uppercase tracking-[0.2em] text-white/70">
+            Get Involved
+          </p>
+
+          <h2 className="mt-2 font-heading text-3xl font-extrabold text-white sm:text-4xl">
+            Your voice can make a difference.
+          </h2>
+
+          <p className="mx-auto mt-4 max-w-2xl font-body leading-7 text-white/80">
+            Stay informed, participate in elections, and support candidates
+            who stand with the Hindu community.
+          </p>
+
+          <a
+            href="/candidates"
+            className="mt-8 inline-flex items-center gap-2 rounded-button bg-white px-7 py-4 font-heading text-sm font-bold uppercase tracking-wide text-hipac-brown transition-colors hover:bg-hipac-brown hover:text-white"
+          >
+            See Our Candidates
+            <ArrowRight size={18} />
+          </a>
+        </div>
+      </section>
+    </main>
+  );
+}
