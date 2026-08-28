@@ -1,0 +1,68 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@500;600;700;800&display=swap");
+
+@import "tailwindcss";
+
+@theme {
+  /* ================================
+     COLORS
+     ================================ */
+
+  --color-hipac-brown: #944414;
+  --color-hipac-orange: #ed6d1d;
+  --color-hipac-bright-orange: #f97316;
+
+  --color-hipac-dark: #2b211c;
+  --color-hipac-white: #ffffff;
+
+  --color-hipac-warm-white: #fff9f5;
+  --color-hipac-light-orange: #fff0e6;
+
+  --color-hipac-border: #e5d8d0;
+  --color-hipac-muted: #756b65;
+
+
+  /* ================================
+     FONTS
+     ================================ */
+
+  --font-heading: "Montserrat", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-accent: "Libre Baskerville", serif;
+
+
+  /* ================================
+     RADIUS
+     ================================ */
+
+  --radius-button: 6px;
+  --radius-input: 5px;
+  --radius-card: 8px;
+  --radius-container: 12px;
+
+
+  /* ================================
+     SHADOWS
+     ================================ */
+
+  --shadow-card: 0 4px 16px rgba(43, 33, 28, 0.08);
+  --shadow-card-hover: 0 8px 24px rgba(43, 33, 28, 0.12);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-hipac-warm-white text-hipac-dark font-body antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading;
+  }
+}
