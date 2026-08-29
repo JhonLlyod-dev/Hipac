@@ -3,7 +3,7 @@ import { useEffect } from "react";
 export default function SEO({
   title,
   description,
-  image = "/og-image.webp",
+  image,
 }) {
   useEffect(() => {
     document.title = title;
@@ -38,7 +38,7 @@ export default function SEO({
 
     setProperty("og:title", title);
     setProperty("og:description", description);
-    setProperty("og:image", image);
+    setProperty("og:image", image || "/og-image.webp");
     setProperty("og:type", "website");
 
     setProperty("twitter:card", "summary_large_image");

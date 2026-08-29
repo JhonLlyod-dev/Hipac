@@ -6,6 +6,8 @@ import {
   UserRound,
 } from "lucide-react";
 
+import SEO from "../components/SEO";
+
 // ============================================================
 // PAGE CONTENT
 // Replace these with Sanity data later.
@@ -106,7 +108,12 @@ export default function ElectionsInfo() {
     <main>
       {/* ======================================================
           HERO
-      ====================================================== */}
+      ================  ====================================== */}
+
+      <SEO
+        title={"Election Information | Hindu  PAC"}
+        description={"Stay informed, prepared, and engaged in the electoral process."}
+      />
 
       <section className="relative overflow-hidden bg-hipac-brown">
         <div className="absolute inset-0">

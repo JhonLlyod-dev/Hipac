@@ -5,6 +5,8 @@ import {
   Mail,
 } from "lucide-react";
 
+import SEO from "../components/SEO";
+
 import DonationForm from "../components/DonationForm";
 
 const donationContent = {
@@ -38,7 +40,10 @@ export default function Donate() {
       {/* ======================================================
           HERO
       ====================================================== */}
-
+      <SEO
+        title={"Donate | Hindu PAC"}
+        description={"Join our mission and help support candidates and causes important to the Hindu-American community."}
+      />
       <section className="relative overflow-hidden bg-hipac-brown">
         <div className="absolute inset-0">
           <img

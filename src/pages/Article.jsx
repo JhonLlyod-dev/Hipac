@@ -7,6 +7,7 @@ import {
   Share2,
   SearchX,
 } from "lucide-react";
+import SEO from "../components/SEO";
 
 import PortableTextContent from "../components/PortableText";
 import { sanityClient, urlFor } from "../lib/sanity";
@@ -110,6 +111,10 @@ export default function Article() {
   if (!article) {
     return (
       <main className="flex min-h-[70vh] items-center justify-center bg-hipac-warm-white px-5">
+        <SEO
+          title={"Not Found | Hindu  PAC"}
+          description={"Article not found"}
+        />
         <div className="text-center">
           <SearchX
             className="mx-auto text-hipac-orange"
@@ -178,6 +183,12 @@ export default function Article() {
       {/* =========================================
           FULL-BLEED HERO
       ========================================= */}
+
+      <SEO
+        title={article.title + " | Hindu  PAC"}
+        description={article.excerpt}
+        image={image}
+      />
 
       <section className="relative h-[62vh] min-h-[440px] w-full overflow-hidden bg-hipac-brown">
         {/* Featured Image */}

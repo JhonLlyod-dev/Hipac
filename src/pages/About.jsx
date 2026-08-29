@@ -1,4 +1,5 @@
 import backgroundImage from "../assets/background-picture.webp";
+import SEO from "../components/SEO";
 
 const heroContent = {
   eyebrow: "Who We Are",
@@ -36,6 +37,11 @@ const candidateCriteria = {
 export default function About() {
   return (
     <main>
+
+      <SEO 
+        title={"About | Hindu PAC"}
+        description={"Building a strong, effective, and respected Hindu-American voice in Georgia and across the country."}
+      />
       <section className="relative overflow-hidden bg-hipac-brown">
         <div className="absolute inset-0">
           <img

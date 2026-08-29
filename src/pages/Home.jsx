@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { ArrowRight, Landmark, Users, ShieldCheck } from "lucide-react";
 import FocusCard from "../components/FocusCard";
 import CandidateCard from "../components/CandidateCard";
+import SEO from "../components/SEO";
 import { sanityClient, urlFor } from "../lib/sanity";
 import {
   homeCandidatesQuery,
@@ -75,6 +76,8 @@ export default function Home() {
       {/* ======================================================
           HERO
       ====================================================== */}
+
+      <SEO title={"Hindu PAC | Supporting the Hindu-American Community"} description={"Hindu PAC is a pro-Hindu political action committee supporting candidates, civic engagement, legislative action, and religious freedom."} />
 
       <section className="relative min-h-[calc(100vh-80px)] overflow-hidden bg-hipac-brown">
         {/* Background */}

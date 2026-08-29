@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { ArrowRight, Landmark, Megaphone, Users } from "lucide-react";
 
 import CandidateCard from "../components/CandidateCard";
+import SEO from "../components/SEO";
 
 import { sanityClient, urlFor } from "../lib/sanity";
 import { candidatesPageQuery } from "../lib/queries";
@@ -16,7 +17,7 @@ const heroContent = {
   description:
     "Hindu PAC stands with candidates who stand with the Hindu community. Together, we can make our voice stronger and our influence greater.",
   backgroundImage:
-    "https://hindusofgeorgia.com/wp-content/uploads/2024/09/Blue-and-White-Modern-Civil-Right-Day-A4-Flyer.png",
+    "/blue-and-white-modern-cvil-right-day.webp",
 };
 
 // ============================================================
@@ -73,7 +74,12 @@ export default function Candidates() {
       {/* ======================================================
           HERO
       ====================================================== */}
-
+      <SEO
+        title={"Support Our Candidates | Hindu PAC"}
+        description={
+          "Supporting candidates and causes important to the Hindu-American community."
+        }
+      />
       <section className="relative overflow-hidden bg-hipac-brown">
         <div className="absolute inset-0">
           <img

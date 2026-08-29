@@ -4,6 +4,7 @@ import {
   UserX,
   ChevronDown,
 } from "lucide-react";
+import SEO from  "../components/SEO";
 
 import backgroundImage from "../assets/background-picture.webp";
 
@@ -87,6 +88,10 @@ export default function ElectionToolkit() {
 
   return (
     <main>
+      <SEO
+        title={"Election Involvement Toolkit | Hindu PAC"}
+        description={"Ways to participate in U.S. elections at any age or immigration status."}
+      />
       <section className="relative overflow-hidden bg-hipac-brown">
         <div className="absolute inset-0">
           <img

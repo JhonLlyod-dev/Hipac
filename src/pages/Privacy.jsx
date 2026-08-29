@@ -1,3 +1,5 @@
+import SEO from "../components/SEO";
+
 const privacyContent = {
   hero: {
     eyebrow: "Legal",
@@ -7,6 +9,7 @@ const privacyContent = {
     backgroundImage:
       "https://hindusofgeorgia.com/wp-content/uploads/2024/09/Blue-and-White-Modern-Civil-Right-Day-A4-Flyer.png",
   },
+
 
   sections: [
     {
@@ -248,6 +251,10 @@ export default function Privacy() {
   return (
     <main>
       {/* Hero */}
+      <SEO 
+        title={"Privacy | Hindu PAC"}
+        description={"Information about how Hindus of Georgia PAC (HiPAC) collects, uses, and handles information provided through this website."}
+      />
       <section className="relative overflow-hidden bg-hipac-brown">
         <div className="absolute inset-0">
           <img
