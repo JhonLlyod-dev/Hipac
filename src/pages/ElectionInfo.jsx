@@ -1,12 +1,16 @@
 import {
   ArrowRight,
-  CalendarDays,
   ExternalLink,
   MapPin,
   UserRound,
 } from "lucide-react";
+import dayjs from "dayjs";
 
 import SEO from "../components/SEO";
+import { sanityClient } from "../lib/sanity";
+import { electionInfoQuery } from "../lib/queries";
+
+import { useState, useEffect } from "react";
 
 // ============================================================
 // PAGE CONTENT
@@ -32,44 +36,6 @@ const introduction = {
 };
 
 // ============================================================
-// ELECTION DATES
-// ============================================================
-
-const election = {
-  name: "General Election",
-  date: "November 5, 2024",
-};
-
-const electionDates = [
-  {
-    label: "Election Day & Name",
-    date: "11/05/2024",
-    description: "November 5, 2024 – General Election",
-    featured: true,
-  },
-  {
-    label: "Earliest Day for a Registrar to Mail an Absentee Ballot",
-    date: "09/21/2024",
-  },
-  {
-    label: "Last Day to Submit Absentee Ballot Application",
-    date: "10/25/2024",
-  },
-  {
-    label: "Registration Deadline",
-    date: "10/07/2024",
-  },
-  {
-    label: "Early-in-Person Voting Begins",
-    date: "10/15/2024",
-  },
-  {
-    label: "Earliest Day for a Voter to Request a Mail Absentee Ballot",
-    date: "08/19/2024",
-  },
-];
-
-// ============================================================
 // VOTER RESOURCES
 // ============================================================
 
@@ -80,7 +46,7 @@ const voterResources = [
       "Check your registration status, request an absentee ballot, see a sample ballot, and check key election dates.",
     buttonLabel: "Go to My Voter Page",
     href: "https://mvp.sos.ga.gov/s/",
-    icon: CalendarDays,
+    icon: MapPin,
     external: true,
   },
   {
@@ -88,7 +54,7 @@ const voterResources = [
     description:
       "Don’t know who represents you? Use this resource to find your state and local legislators.",
     buttonLabel: "Find Your Representative",
-    href: "https://pluralpolicy.com/find-your-legislator/",
+    href: "https://pluralpolicy.com/",
     icon: MapPin,
     external: true,
   },
@@ -103,12 +69,95 @@ const voterResources = [
   },
 ];
 
+// ============================================================
+// DATE CARD (big, 4-up grid)
+// ============================================================
+
+function DateCard({ title, date, description, isFeatured }) {
+  const parsed = date ? dayjs(date) : null;
+
+  return (
+    <div
+      className={`flex h-full flex-col rounded-2xl border p-6 shadow-card transition-all duration-300 hover:-translate-y-1 ${
+        isFeatured
+          ? "border-hipac-orange/40 bg-hipac-orange/5"
+          : "border-hipac-border bg-white"
+      }`}
+    >
+      {/* Date badge */}
+      <div
+        className={`flex w-fit flex-col items-center justify-center rounded-xl px-4 py-3 text-center w-full ${
+          isFeatured
+            ? "bg-hipac-orange text-white"
+            : "bg-hipac-brown text-white"
+        }`}
+      >
+        {parsed ? (
+          <div className="flex items-center justify-center gap-3">
+            {/* Day */}
+            <span className="font-heading text-6xl font-extrabold leading-[0.8] tracking-tight">
+              {parsed.format("DD")}
+            </span>
+
+            {/* Month + Year */}
+            <div className="flex flex-col justify-center">
+              <span className="font-heading text-sm font-bold uppercase leading-none tracking-wide">
+                {parsed.format("MMM")}
+              </span>
+
+              <span className="mt-1 font-heading text-xs font-bold uppercase leading-none tracking-wide text-white/70">
+                {parsed.format("YYYY")}
+              </span>
+            </div>
+          </div>
+        ) : (
+          <span className="font-heading text-xs font-bold uppercase">
+            TBD
+          </span>
+        )}
+      </div>
+
+      {/* Info */}
+      <div className="mt-5">
+        <h3 className="font-heading text-lg font-bold leading-snug text-hipac-brown">
+          {title}
+        </h3>
+
+        {description && (
+          <p className="mt-2 font-body text-sm leading-6 text-hipac-muted">
+            {description}
+          </p>
+        )}
+      </div>
+    </div>
+  );
+}
+
 export default function ElectionsInfo() {
+  const [electionInfo, setElectionInfo] = useState(null);
+
+  useEffect(() => {
+    async function fetchElectionInfo() {
+      try {
+        const data = await sanityClient.fetch(electionInfoQuery);
+        setElectionInfo(data);
+      } catch (error) {
+        console.error("Failed to fetch election info:", error);
+      }
+    }
+
+    fetchElectionInfo();
+  }, []);
+
+  const sortedDates = (electionInfo?.importantDates ?? [])
+    .slice()
+    .sort((a, b) => new Date(a.date) - new Date(b.date));
+
   return (
     <main>
       {/* ======================================================
           HERO
-      ================  ====================================== */}
+      ====================================================== */}
 
       <SEO
         title={"Election Information | Hindu  PAC"}
@@ -144,39 +193,10 @@ export default function ElectionsInfo() {
       </section>
 
       {/* ======================================================
-          INTRODUCTION
+          MARK YOUR CALENDAR (big cards, 4-up)
       ====================================================== */}
 
       <section className="bg-hipac-warm-white px-5 py-20 lg:px-8 lg:py-28">
-        <div className="mx-auto max-w-4xl">
-          <div className="mb-10">
-            <p className="font-heading text-sm font-bold uppercase tracking-[0.2em] text-hipac-orange">
-              Election Information
-            </p>
-
-            <h2 className="mt-3 font-heading text-3xl font-extrabold tracking-tight text-hipac-brown sm:text-4xl">
-              {introduction.title}
-            </h2>
-          </div>
-
-          <div className="space-y-5">
-            {introduction.paragraphs.map((paragraph) => (
-              <p
-                key={paragraph}
-                className="font-body text-base leading-8 text-hipac-muted"
-              >
-                {paragraph}
-              </p>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ======================================================
-          IMPORTANT DATES
-      ====================================================== */}
-
-      <section className="bg-white px-5 py-20 lg:px-8 lg:py-28">
         <div className="mx-auto max-w-7xl">
           <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
             <div className="max-w-2xl">
@@ -194,68 +214,82 @@ export default function ElectionsInfo() {
               </p>
             </div>
 
-            {/* Election Badge */}
-            <div className="flex items-center gap-3 rounded-2xl bg-hipac-brown px-5 py-4 text-white">
-              <CalendarDays
-                size={22}
-                className="text-hipac-orange"
-              />
-
-              <div>
-                <p className="font-heading text-xs font-bold uppercase tracking-wide text-white/50">
-                  Election
-                </p>
-
-                <p className="font-heading text-sm font-bold">
-                  {election.name}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Dates */}
-          <div className="mt-12 overflow-hidden rounded-2xl border border-hipac-border bg-white shadow-card">
-            {electionDates.map((item, index) => (
-              <div
-                key={item.label}
-                className={`grid gap-4 px-6 py-6 sm:grid-cols-[180px_1fr] sm:items-center lg:grid-cols-[220px_1fr] ${
-                  index !== electionDates.length - 1
-                    ? "border-b border-hipac-border"
-                    : ""
-                } ${
-                  item.featured
-                    ? "bg-hipac-orange/5"
-                    : ""
-                }`}
-              >
-                {/* Date */}
+            {electionInfo?.name && (
+              <div className="flex items-center gap-3 rounded-2xl bg-hipac-brown px-5 py-4 text-white">
                 <div>
-                  <span
-                    className={`font-heading text-2xl font-extrabold ${
-                      item.featured
-                        ? "text-hipac-orange"
-                        : "text-hipac-brown"
-                    }`}
-                  >
-                    {item.date}
-                  </span>
-                </div>
+                  <p className="font-heading text-xs font-bold uppercase tracking-wide text-white/50">
+                    Current Election
+                  </p>
 
-                {/* Information */}
-                <div>
-                  <h3 className="font-heading text-base font-bold text-hipac-brown">
-                    {item.label}
-                  </h3>
+                  <p className="font-heading text-sm font-bold">
+                    {electionInfo.name}
+                  </p>
 
-                  {item.description && (
-                    <p className="mt-1 font-body text-sm text-hipac-muted">
-                      {item.description}
+                  {electionInfo.electionDate && (
+                    <p className="font-body text-xs text-white/60">
+                      {dayjs(electionInfo.electionDate).format(
+                        "MMMM D, YYYY"
+                      )}
                     </p>
                   )}
                 </div>
               </div>
+            )}
+          </div>
+
+          {/* Big date cards, at least 4 per line on large screens */}
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {sortedDates.length > 0 ? (
+              sortedDates.map((item) => (
+                <DateCard
+                  key={item._key ?? `${item.title}-${item.date}`}
+                  title={item.title}
+                  date={item.date}
+                  description={item.description}
+                  isFeatured={item.isFeatured}
+                />
+              ))
+            ) : (
+              <p className="font-body text-sm text-hipac-muted">
+                Election dates will be posted here soon.
+              </p>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* ======================================================
+          ELECTION INFORMATION (intro, below dates)
+      ====================================================== */}
+
+      <section className="bg-white px-5 py-20 lg:px-8 lg:py-28">
+        <div className="mx-auto max-w-4xl">
+          <div className="mb-10 text-center">
+            <p className="font-heading text-sm font-bold uppercase tracking-[0.2em] text-hipac-orange">
+              Election Information
+            </p>
+
+            <h2 className="mt-3 font-heading text-4xl font-extrabold tracking-tight text-hipac-brown sm:text-5xl">
+              {introduction.title}
+            </h2>
+          </div>
+
+          <div className="space-y-5">
+            {introduction.paragraphs.map((paragraph) => (
+              <p
+                key={paragraph}
+                className="font-body text-base leading-8 text-hipac-muted"
+              >
+                {paragraph}
+              </p>
             ))}
           </div>
+
+          {electionInfo?.description && (
+            <p className="mt-5 font-body text-base leading-8 text-hipac-muted">
+              {electionInfo.description}
+            </p>
+          )}
         </div>
       </section>
 

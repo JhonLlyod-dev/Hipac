@@ -26,15 +26,15 @@ const heroContent = {
 
 const supportReasons = [
   {
-    title: "Money with a Pro-Hindu Message",
+    title: "Money with a Hindu Message",
     description:
       "When you contribute to Hindu PAC, you send a clear and unmistakable message that elected officials and candidates can’t forsake the Hindu community.",
     icon: Megaphone,
   },
   {
-    title: "Lend Your Voice to a Pro-Hindu Team",
+    title: "Lend Your Voice to a Hindu Team",
     description:
-      "If you give to a candidate, your resources help in one race. When you give to Hindu PAC, your money promotes a whole team of Pro-Hindu candidates.",
+      "If you give to a candidate, your resources help in one race. When you give to Hindu PAC, your money promotes a whole team of Hindu candidates.",
     icon: Users,
   },
   {

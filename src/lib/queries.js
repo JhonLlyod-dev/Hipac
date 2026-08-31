@@ -106,3 +106,19 @@ export const candidatesPageQuery = `
     }
   }
 `;
+
+export const electionInfoQuery = `
+  *[_type == "election" && isCurrent == true][0] {
+    _id,
+    name,
+    electionDate,
+    description,
+    importantDates[] {
+      title,
+      date,
+      description,
+      isFeatured
+    },
+    isCurrent
+  }
+`;

@@ -15,7 +15,7 @@ import {
 
 const heroContent = {
   eyebrow: "Hindu PAC",
-  title: "THE LARGEST PRO HINDU PAC IN NORTH AMERICA",
+  title: "THE LARGEST HINDU PAC IN NORTH AMERICA",
   description:
     "Standing with candidates and causes that support the Hindu-American community.",
   image:
@@ -77,7 +77,7 @@ export default function Home() {
           HERO
       ====================================================== */}
 
-      <SEO title={"Hindu PAC | Supporting the Hindu-American Community"} description={"Hindu PAC is a pro-Hindu political action committee supporting candidates, civic engagement, legislative action, and religious freedom."} />
+      <SEO title={"Hindu PAC | Supporting the Hindu-American Community"} description={"Hindu PAC is a  Hindu political action committee supporting candidates, civic engagement, legislative action, and religious freedom."} />
 
       <section className="relative min-h-[calc(100vh-80px)] overflow-hidden bg-hipac-brown">
         {/* Background */}
@@ -88,7 +88,7 @@ export default function Home() {
             className="h-full w-full object-cover"
           />
 
-          <div className="absolute inset-0 bg-hipac-brown/80" />
+          <div className="absolute inset-0 bg-hipac-brown/10" />
         </div>
 
         <div className="relative mx-auto flex min-h-[calc(100vh-80px)] max-w-7xl items-center px-5 py-20 lg:px-8">
