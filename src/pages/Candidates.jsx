@@ -16,8 +16,7 @@ const heroContent = {
   title: "Support Our Candidates",
   description:
     "Hindu PAC stands with candidates who stand with the Hindu community. Together, we can make our voice stronger and our influence greater.",
-  backgroundImage:
-    "/blue-and-white-modern-cvil-right-day.webp",
+  backgroundImage: "/blue-and-white-modern-cvil-right-day.webp",
 };
 
 // ============================================================
@@ -44,6 +43,107 @@ const supportReasons = [
     icon: Landmark,
   },
 ];
+
+// ============================================================
+// CANDIDATE CATEGORY
+// ============================================================
+// Categories now come straight from Sanity, already sorted by
+// displayOrder. No hardcoded slug list to maintain — add a new
+// category in Sanity and it just shows up here.
+
+function CandidateCategory({ group, number }) {
+  return (
+    <section className="text-center">
+      {/* ======================================================
+          DIVIDER
+      ====================================================== */}
+
+      <div className="mx-auto mb-14 flex max-w-3xl items-center gap-5">
+        <div className="h-px flex-1 bg-hipac-border" />
+
+        <span className="font-heading text-xs font-extrabold tracking-[0.2em] text-hipac-orange">
+          {number}
+        </span>
+
+        <div className="h-px flex-1 bg-hipac-border" />
+      </div>
+
+      {/* ======================================================
+          CATEGORY HEADER
+      ====================================================== */}
+
+      <div className="mx-auto max-w-3xl">
+        <h2 className="font-heading text-3xl font-extrabold uppercase tracking-tight text-hipac-brown sm:text-4xl">
+          {group.title}
+        </h2>
+
+        {group.description && (
+          <p className="mx-auto mt-3 max-w-2xl font-body text-sm leading-6 text-hipac-muted">
+            {group.description}
+          </p>
+        )}
+      </div>
+
+      {/* ======================================================
+          CANDIDATES
+      ====================================================== */}
+
+      {group.candidates.length > 0 ? (
+        <div className="mt-8 flex flex-wrap justify-center gap-5">
+          {group.candidates.map((candidate) => (
+            <div
+              key={candidate._id}
+              className="w-full sm:w-[260px] lg:w-[270px]"
+            >
+              <CandidateCard
+                name={candidate.name}
+                title={candidate.title}
+                slug={candidate.slug}
+                image={urlFor(candidate.photo)}
+              />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p className="mt-8 font-body text-sm text-hipac-muted">
+          No candidates available in this category.
+        </p>
+      )}
+    </section>
+  );
+}
+
+// ============================================================
+// LOADING SKELETON
+// ============================================================
+
+function CandidatesLoading() {
+  return (
+    <div className="space-y-20">
+      {[1, 2, 3].map((category) => (
+        <section key={category}>
+          <div className="mx-auto max-w-3xl text-center">
+            <div className="mx-auto h-3 w-12 animate-pulse rounded bg-hipac-warm-white" />
+            <div className="mx-auto mt-6 h-8 w-56 animate-pulse rounded bg-hipac-warm-white" />
+          </div>
+
+          <div className="mt-8 flex flex-wrap justify-center gap-5">
+            {[1, 2, 3, 4].map((candidate) => (
+              <div
+                key={candidate}
+                className="h-72 w-full animate-pulse rounded-2xl bg-hipac-warm-white sm:w-[260px]"
+              />
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+  );
+}
+
+// ============================================================
+// PAGE
+// ============================================================
 
 export default function Candidates() {
   const [candidateGroups, setCandidateGroups] = useState([]);
@@ -72,14 +172,18 @@ export default function Candidates() {
   return (
     <main>
       {/* ======================================================
+          SEO
+      ====================================================== */}
+
+      <SEO
+        title="Support Our Candidates | Hindu PAC"
+        description="Supporting candidates and causes important to the Hindu-American community."
+      />
+
+      {/* ======================================================
           HERO
       ====================================================== */}
-      <SEO
-        title={"Support Our Candidates | Hindu PAC"}
-        description={
-          "Supporting candidates and causes important to the Hindu-American community."
-        }
-      />
+
       <section className="relative overflow-hidden bg-hipac-brown">
         <div className="absolute inset-0">
           <img
@@ -161,7 +265,11 @@ export default function Candidates() {
 
       <section className="bg-white px-5 py-20 lg:px-8 lg:py-28">
         <div className="mx-auto max-w-7xl">
-          <div className="mb-16 max-w-3xl">
+          {/* ==================================================
+              PAGE INTRO
+          ================================================== */}
+
+          <div className="mb-20 max-w-3xl">
             <p className="font-heading text-sm font-bold uppercase tracking-[0.2em] text-hipac-orange">
               Our Candidates
             </p>
@@ -172,91 +280,27 @@ export default function Candidates() {
 
             <p className="mt-5 font-body leading-7 text-hipac-muted">
               Explore the candidates and elected officials supported by Hindu
-              PAC across federal, state, and local government.
+              PAC across state and local government.
             </p>
           </div>
 
           {/* ==================================================
-              LOADING
+              LOADING / CONTENT / EMPTY
           ================================================== */}
 
           {loading ? (
-            <div className="space-y-24">
-              {[1, 2, 3].map((group) => (
-                <section key={group}>
-                  <div className="mb-8 border-b border-hipac-border pb-5">
-                    <div className="h-8 w-64 animate-pulse rounded bg-hipac-warm-white" />
-
-                    <div className="mt-3 h-4 w-96 max-w-full animate-pulse rounded bg-hipac-warm-white" />
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-                    {[1, 2, 3, 4, 5].map((item) => (
-                      <div
-                        key={item}
-                        className="h-72 animate-pulse rounded-2xl bg-hipac-warm-white"
-                      />
-                    ))}
-                  </div>
-                </section>
-              ))}
-            </div>
+            <CandidatesLoading />
           ) : candidateGroups.length > 0 ? (
-            /* ==================================================
-                CANDIDATE GROUPS
-            ================================================== */
-
-            <div className="space-y-24">
-              {candidateGroups.map((group) => (
-                <section key={group._id}>
-                  {/* Category Header */}
-                  <div className="mb-8 flex flex-col gap-3 border-b border-hipac-border pb-5 sm:flex-row sm:items-end sm:justify-between">
-                    <div>
-                      <h2 className="font-heading text-2xl font-extrabold text-hipac-brown sm:text-3xl">
-                        {group.title}
-                      </h2>
-
-                      {group.description && (
-                        <p className="mt-2 max-w-2xl font-body text-sm text-hipac-muted">
-                          {group.description}
-                        </p>
-                      )}
-                    </div>
-
-                    <span className="font-heading text-sm font-bold text-hipac-orange">
-                      {group.candidates.length}{" "}
-                      {group.candidates.length === 1
-                        ? "Candidate"
-                        : "Candidates"}
-                    </span>
-                  </div>
-
-                  {/* Candidate Grid */}
-                  {group.candidates.length > 0 ? (
-                    <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-                      {group.candidates.map((candidate) => (
-                        <CandidateCard
-                          key={candidate._id}
-                          name={candidate.name}
-                          title={candidate.title}
-                          slug={candidate.slug}
-                          image={urlFor(candidate.photo)}
-                        />
-                      ))}
-                    </div>
-                  ) : (
-                    <p className="font-body text-sm text-hipac-muted">
-                      No candidates available in this category.
-                    </p>
-                  )}
-                </section>
+            <div className="space-y-28">
+              {candidateGroups.map((group, index) => (
+                <CandidateCategory
+                  key={group._id}
+                  group={group}
+                  number={String(index + 1).padStart(2, "0")}
+                />
               ))}
             </div>
           ) : (
-            /* ==================================================
-                EMPTY STATE
-            ================================================== */
-
             <div className="py-20 text-center">
               <p className="font-heading text-xl font-bold text-hipac-brown">
                 No candidates found.

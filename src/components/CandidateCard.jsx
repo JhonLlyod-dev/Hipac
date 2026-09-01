@@ -7,7 +7,6 @@ export default function CandidateCard({
   title,
   slug,
 }) {
-  const href = slug ? `/candidates/${slug}` : "#";
 
   return (
     <a
@@ -20,10 +19,10 @@ export default function CandidateCard({
           <img
             src={image}
             alt={name}
-            className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+            className="h-auto w-full transition-transform duration-500 group-hover:scale-105"
           />
         ) : (
-          <div className="flex h-full items-center justify-center">
+          <div className="flex aspect-[4/3] items-center justify-center">
             <span className="font-body text-sm text-hipac-muted">
               No image available
             </span>

@@ -2,7 +2,7 @@ export const homeCandidatesQuery = `
   *[
     _type == "politician" &&
     status == "active" &&
-    category->slug.current == "georgia-congressmen"
+    category->slug.current == "house-representatives"
   ]
   | order(displayOrder asc)[0...6] {
     _id,
@@ -77,18 +77,12 @@ export const nextArticleQuery = `
 
 export const candidatesPageQuery = `
   *[
-    _type == "category" &&
-    slug.current in [
-      "georgia-congressmen",
-      "congressmen-outside-georgia",
-      "georgia-state-senators",
-      "georgia-state-representatives",
-      "local-officials"
-    ]
-  ] {
+    _type == "category"
+  ] | order(displayOrder asc) {
     _id,
     title,
     description,
+    displayOrder,
     "slug": slug.current,
 
     "candidates": *[
